@@ -9,8 +9,8 @@ const store = new Vuex.Store({
     character: null
   },
   mutations: {
-    createCharacter: (state, { name, characterClass }) => {
-      state.character = new Character({ name, characterClass });
+    createCharacter: (state, character) => {
+      state.character = character;
     }
   },
   getters: {
@@ -18,8 +18,12 @@ const store = new Vuex.Store({
   },
   actions: {
     createCharacter({ commit }, { name, characterClass }) {
-      console.log(name, characterClass);
-      commit('createCharacter', { name, characterClass });
+      const character = new Character({ name, characterClass });
+      localStorage.setItem('character', JSON.stringify(character));
+      commit('createCharacter', character);
+    },
+    getCharacter({ commit }) {
+      commit('createCharacter', JSON.parse(localStorage.getItem('character') || null));
     }
   }
 });
