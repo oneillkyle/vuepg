@@ -1,22 +1,25 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import Character from './classes/character';
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    count: 0
+    character: null
   },
   mutations: {
-    increment: state => state.count + 1,
-    decrement: state => state.count - 1
+    createCharacter: (state, { name, characterClass }) => {
+      state.character = new Character({ name, characterClass });
+    }
   },
   getters: {
-    doneTodos: state => state.todos.filter(todo => todo.done)
+    // doneTodos: state => state.todos.filter(todo => todo.done)
   },
   actions: {
-    increment({ commit }) {
-      commit('increment');
+    createCharacter({ commit }, { name, characterClass }) {
+      console.log(name, characterClass);
+      commit('createCharacter', { name, characterClass });
     }
   }
 });
