@@ -1,0 +1,77 @@
+<template>
+    <div>
+      <input v-model="name" placeholder="Character Name">
+      
+      <div>Character Class</div>
+      <div class="flex-nowrap-row">
+        <div class="flex-item-half">
+          <div v-for="characterClass of characterClasses" :key="characterClass.name">
+            <input type="radio" :id="characterClass.name" :value="characterClass.url" v-model="selectedCharacterClass">
+            <label :for="characterClass.name">{{characterClass.name}}</label>
+            <br>
+          </div>
+        </div>
+
+        <div class="flex-item-half">
+          <ul v-if="characterClassDetails">
+            <li>{{ characterClassDetails.name }}</li>
+            <li>Hit Die: {{ characterClassDetails.hit_die }}</li>
+            <li>
+              Subclasses
+              <ul>
+                <li v-for="subclass of characterClassDetails.subclasses" :key="subclass.url">
+                  {{ subclass.name }}
+                </li>
+              </ul>
+            </li>
+            <li>
+              Proficiencies
+              <ul>
+                <li v-for="proficiency of characterClassDetails.proficiencies" :key="proficiency.url">
+                  {{ proficiency.name }}
+                </li>
+              </ul>
+            </li>
+          </ul>
+          
+        </div>
+      </div>
+
+      <button @click="selectCharacter">Next</button>
+    </div>
+</template>
+
+<script>
+export default {
+  name: 'create-class',
+  props: {
+    characterClasses: Array,
+    characterClassDetails: Object
+  },
+  data() {
+    return {
+      name: '',
+      selectedCharacterClass: ''
+    };
+  },
+  methods: {
+    selectCharacter() {
+      if (this.name && this.selectedCharacterClass) {
+        this.$emit('selectCharacter', {
+          name: this.name,
+          selectedCharacterClass: this.selectedCharacterClass
+        });
+      }
+    }
+  },
+  watch: {
+    selectedCharacterClass(val) {
+      this.$emit('getCharacterDetails', val);
+    }
+  }
+};
+</script>
+
+<style scoped>
+
+</style>

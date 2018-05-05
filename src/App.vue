@@ -67,11 +67,22 @@ header span {
   justify-content: space-between;
 }
 
+.flex-nowrap-row {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
 .flex-item {
   flex: 1 1 auto;
 }
 
 .flex-item-full {
   flex: 1 0 100%;
+}
+
+.flex-item-half {
+  flex: 1 0 50%;
 }
 </style>

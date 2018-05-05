@@ -2,16 +2,11 @@
   <div class="hello">
     <h1>Create Your Character</h1>
     <div>
-      <input v-model="name" placeholder="Character Name">
-      
-      <div>Character Class</div>
-      <div v-for="characterClass of characterClasses" :key="characterClass.name">
-        <input type="radio" :id="characterClass.name" :value="characterClass.url" v-model="selectedCharacterClass">
-        <label :for="characterClass.name">{{characterClass.name}}</label>
-        <br>
-      </div>
-
-      <button @click="create">Next</button>
+      <create-class v-if="step === 0"
+        :characterClasses="characterClasses"
+        :characterClassDetails="characterClassDetails"
+        @selectCharacter="onSelectCharacter"
+        @getCharacterDetails="onGetCharacterDetails"></create-class>
 
       {{character}}
     </div>
@@ -21,14 +16,15 @@
 <script>
 import { mapActions } from 'vuex';
 import dndService from '../services/dnd-service';
+import CreateClass from './create/Class';
 
 export default {
   name: 'create',
   data() {
     return {
-      name: '',
-      selectedCharacterClass: '',
-      characterClasses: []
+      step: 0,
+      characterClasses: [],
+      characterClassDetails: null
     };
   },
   created() {
@@ -42,9 +38,16 @@ export default {
     }
   },
   methods: {
-    ...mapActions([
-      'createCharacter'
-    ]),
+    ...mapActions(['createCharacter']),
+    onSelectCharacter({ name, selectedCharacterClass }) {
+      console.log(name, selectedCharacterClass);
+    },
+    onGetCharacterDetails(url) {
+      this.characterClassDetails = null;
+      dndService.getResourceByUrl(url).subscribe(response => {
+        this.characterClassDetails = response.data;
+      });
+    },
     create() {
       if (this.name && this.characterClass) {
         this.createCharacter({
@@ -53,13 +56,14 @@ export default {
         });
       }
     }
-  }
+  },
+  components: { CreateClass }
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
-h1, h2 {
+<style scoped>
+h1,
+h2 {
   font-weight: normal;
 }
 
@@ -74,6 +78,6 @@ li {
 }
 
 a {
-  color: #35495E;
+  color: #35495e;
 }
 </style>
