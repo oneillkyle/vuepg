@@ -5,28 +5,41 @@
       <input v-model="name" placeholder="Character Name">
       
       <div>Character Class</div>
-      <input type="radio" id="mage" value="mage" v-model="characterClass">
-      <label for="mage">Mage</label>
-      <br>
-      <input type="radio" id="jester" value="jester" v-model="characterClass">
-      <label for="jester">Jester</label>
-      <br>
+      <div v-for="characterClass of characterClasses" :key="characterClass.name">
+        <input type="radio" :id="characterClass.name" :value="characterClass.url" v-model="selectedCharacterClass">
+        <label :for="characterClass.name">{{characterClass.name}}</label>
+        <br>
+      </div>
 
-      <button @click="create">Create!</button>
+      <button @click="create">Next</button>
+
+      {{character}}
     </div>
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
+import dndService from '../services/dnd-service';
 
 export default {
   name: 'create',
   data() {
     return {
       name: '',
-      characterClass: ''
+      selectedCharacterClass: '',
+      characterClasses: []
     };
+  },
+  created() {
+    dndService.getResource('classes').subscribe(response => {
+      this.characterClasses = response.data.results;
+    });
+  },
+  computed: {
+    character() {
+      return this.$store.state.character;
+    }
   },
   methods: {
     ...mapActions([

@@ -4,7 +4,9 @@
       <span>Vue.js PWA</span>
     </header>
     <main>
-      <img src="./assets/logo.png" alt="Vue.js PWA">
+      <div class="center">
+        <img src="./assets/logo.png" alt="Vue.js PWA" class="main-image">
+      </div>
       <router-view></router-view>
     </main>
   </div>
@@ -32,7 +34,6 @@ body {
 }
 
 main {
-  text-align: center;
   margin-top: 40px;
 }
 
@@ -53,5 +54,24 @@ header span {
   font-weight: 400;
   box-sizing: border-box;
   padding-top: 16px;
+}
+
+.center {
+  text-align: center;  
+}
+
+.flex-wrap-row {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.flex-item {
+  flex: 1 1 auto;
+}
+
+.flex-item-full {
+  flex: 1 0 100%;
 }
 </style>

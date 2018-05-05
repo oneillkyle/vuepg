@@ -1,5 +1,3 @@
-import { Jester, Mage } from './character-classes';
-
 export default class Character {
   name = '';
   characterClass = '';
@@ -8,6 +6,8 @@ export default class Character {
   maxHealth = 0;
   mana = 0;
   maxMana = 0;
+  level = 1;
+
   strength = 0;
   intelligence = 0;
   constitution = 0;
@@ -15,39 +15,32 @@ export default class Character {
   wisdom = 0;
   charisma = 0;
 
-  characterClassTemplate = null;
+  proficiencies = [];
+  items = [];
+  equipment = {};
+  spells = [];
 
   constructor({
     name,
-    characterClass
+    characterClass,
+    initialStats
   }) {
     this.name = name;
     this.characterClass = characterClass;
-    this.items = {};
-    this.weapons = {};
 
-    this.rollInitialStats();
+    this.rollInitialStats(initialStats);
   }
 
-  rollInitialStats() {
-    const CharacterClassTemplate = this.getCharacterClassTemplate(this.characterClass);
-    this.characterClassTemplate = new CharacterClassTemplate();
-    this.health = this.characterClassTemplate.rolledValues.health;
-    this.startingHealth = this.characterClassTemplate.rolledValues.health;
-    this.mana = this.characterClassTemplate.rolledValues.mana;
-    this.startingMana = this.characterClassTemplate.rolledValues.mana;
-    this.strength = this.characterClassTemplate.rolledValues.strength;
-    this.intelligence = this.characterClassTemplate.rolledValues.intelligence;
-    this.constitution = this.characterClassTemplate.rolledValues.constitution;
-    this.dexterity = this.characterClassTemplate.rolledValues.dexterity;
-    this.wisdom = this.characterClassTemplate.rolledValues.wisdom;
-    this.charisma = this.characterClassTemplate.rolledValues.charisma;
-  }
-
-  getCharacterClassTemplate() {
-    return {
-      jester: Jester,
-      mage: Mage
-    }[this.characterClass];
+  rollInitialStats(initialStats) {
+    this.health = initialStats.health;
+    this.startingHealth = initialStats.health;
+    this.mana = initialStats.mana;
+    this.startingMana = initialStats.mana;
+    this.strength = initialStats.strength;
+    this.intelligence = initialStats.intelligence;
+    this.constitution = initialStats.constitution;
+    this.dexterity = initialStats.dexterity;
+    this.wisdom = initialStats.wisdom;
+    this.charisma = initialStats.charisma;
   }
 }
