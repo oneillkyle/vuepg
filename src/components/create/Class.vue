@@ -46,7 +46,9 @@ export default {
   name: 'create-class',
   props: {
     characterClasses: Array,
-    characterClassDetails: Object
+    characterClassDetails: Object,
+    initialName: String,
+    initialCharacterClass: String
   },
   data() {
     return {
@@ -54,12 +56,17 @@ export default {
       selectedCharacterClass: ''
     };
   },
+  created() {
+    this.name = this.initialName;
+    this.selectedCharacterClass = this.initialCharacterClass;
+  },
   methods: {
     selectCharacter() {
       if (this.name && this.selectedCharacterClass) {
         this.$emit('selectCharacter', {
           name: this.name,
-          selectedCharacterClass: this.selectedCharacterClass
+          selectedCharacterClass: this.selectedCharacterClass,
+          characterClassDetails: this.characterClassDetails
         });
       }
     }

@@ -17,6 +17,7 @@ export default {
   name: 'app',
   created() {
     this.$store.dispatch('getCharacter');
+    this.$store.dispatch('getCharacterCreationStep');
   }
 };
 </script>

@@ -2,12 +2,15 @@
   <div class="hello">
     <h1>Create Your Character</h1>
     <div>
-      <create-class v-if="step === 0"
+      <create-class v-if="characterCreationStep === 0"
         :characterClasses="characterClasses"
         :characterClassDetails="characterClassDetails"
+        :initialName="character.name"
+        :initialCharacterClass="character.characterClass.url"
         @selectCharacter="onSelectCharacter"
         @getCharacterDetails="onGetCharacterDetails"></create-class>
 
+      <button v-if="characterCreationStep > 0" type="button" @click="back">Back</button>
       {{character}}
     </div>
   </div>
@@ -22,7 +25,6 @@ export default {
   name: 'create',
   data() {
     return {
-      step: 0,
       characterClasses: [],
       characterClassDetails: null
     };
@@ -35,12 +37,19 @@ export default {
   computed: {
     character() {
       return this.$store.state.character;
+    },
+    characterCreationStep() {
+      return this.$store.state.characterCreationStep;
     }
   },
   methods: {
-    ...mapActions(['createCharacter']),
-    onSelectCharacter({ name, selectedCharacterClass }) {
-      console.log(name, selectedCharacterClass);
+    ...mapActions(['createStubCharacter', 'updateCharacterCreationStep']),
+    onSelectCharacter({ name, selectedCharacterClass, characterClassDetails }) {
+      console.log(name, selectedCharacterClass, characterClassDetails);
+      this.createStubCharacter({
+        name,
+        characterClass: characterClassDetails
+      });
     },
     onGetCharacterDetails(url) {
       this.characterClassDetails = null;
@@ -48,13 +57,8 @@ export default {
         this.characterClassDetails = response.data;
       });
     },
-    create() {
-      if (this.name && this.characterClass) {
-        this.createCharacter({
-          name: this.name,
-          characterClass: this.characterClass
-        });
-      }
+    back() {
+      this.updateCharacterCreationStep(this.characterCreationStep - 1);
     }
   },
   components: { CreateClass }

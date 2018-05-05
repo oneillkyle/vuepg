@@ -5,26 +5,42 @@ import Character from './classes/character';
 
 Vue.use(Vuex);
 
+const characterCreationSteps = {
+  createStubCharacter: 1
+};
+
 const store = new Vuex.Store({
   state: {
-    character: null
+    character: null,
+    characterCreationStep: null
   },
   mutations: {
-    createCharacter: (state, character) => {
+    updateCharacter: (state, character) => {
       state.character = character;
+    },
+    updateCharacterCreationStep: (state, characterCreationStep) => {
+      state.characterCreationStep = characterCreationStep;
     }
   },
   getters: {
     // doneTodos: state => state.todos.filter(todo => todo.done)
   },
   actions: {
-    createCharacter({ commit }, { name, characterClass }) {
+    createStubCharacter({ commit, dispatch }, { name, characterClass }) {
       const character = new Character({ name, characterClass });
       localStorage.setItem('character', JSON.stringify(character));
-      commit('createCharacter', character);
+      commit('updateCharacter', character);
+      dispatch('updateCharacterCreationStep', characterCreationSteps.createStubCharacter);
+    },
+    updateCharacterCreationStep({ commit }, step) {
+      localStorage.setItem('characterCreationStep', step);
+      commit('updateCharacterCreationStep', step);
     },
     getCharacter({ commit }) {
-      commit('createCharacter', JSON.parse(localStorage.getItem('character') || null));
+      commit('updateCharacter', JSON.parse(localStorage.getItem('character') || null));
+    },
+    getCharacterCreationStep({ commit }) {
+      commit('updateCharacterCreationStep', parseInt(localStorage.getItem('characterCreationStep') || 0, 10));
     }
   }
 });

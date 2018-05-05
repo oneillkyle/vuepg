@@ -1,6 +1,6 @@
 export default class Character {
   name = '';
-  characterClass = '';
+  characterClass = {};
 
   health = 0;
   maxHealth = 0;
@@ -22,13 +22,10 @@ export default class Character {
 
   constructor({
     name,
-    characterClass,
-    initialStats
+    characterClass
   }) {
     this.name = name;
     this.characterClass = characterClass;
-
-    this.rollInitialStats(initialStats);
   }
 
   rollInitialStats(initialStats) {
