@@ -10,8 +10,12 @@
         @selectCharacter="onSelectCharacter"
         @getCharacterDetails="onGetCharacterDetails"></create-class>
 
+      <create-proficiencies v-if="characterCreationStep === 1"
+        :proficiencyChoices="character.characterClass.proficiency_choices"
+        @proficienciesSelected="proficienciesSelected"></create-proficiencies>
+
       <button v-if="characterCreationStep > 0" type="button" @click="back">Back</button>
-      {{character}}
+      <pre>{{character}}</pre>
     </div>
   </div>
 </template>
@@ -20,6 +24,8 @@
 import { mapActions } from 'vuex';
 import dndService from '../services/dnd-service';
 import CreateClass from './create/Class';
+import CreateProficiencies from './create/Proficiencies';
+import CreateStats from './create/Stats';
 
 export default {
   name: 'create',
@@ -43,7 +49,11 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['createStubCharacter', 'updateCharacterCreationStep']),
+    ...mapActions([
+      'createStubCharacter',
+      'updateCharacterCreationStep',
+      'setProficiencies'
+    ]),
     onSelectCharacter({ name, selectedCharacterClass, characterClassDetails }) {
       console.log(name, selectedCharacterClass, characterClassDetails);
       this.createStubCharacter({
@@ -57,11 +67,21 @@ export default {
         this.characterClassDetails = response.data;
       });
     },
+    proficienciesSelected(proficiencies) {
+      console.log(proficiencies);
+      this.setProficiencies(
+        proficiencies
+      );
+    },
     back() {
       this.updateCharacterCreationStep(this.characterCreationStep - 1);
     }
   },
-  components: { CreateClass }
+  components: {
+    CreateClass,
+    CreateProficiencies,
+    CreateStats
+  }
 };
 </script>
 

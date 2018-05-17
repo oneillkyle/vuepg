@@ -13,7 +13,7 @@ export default {
   name: 'hello',
   data() {
     return {
-      msg: 'Welcome VuePG - A Simply Stupid RPG'
+      msg: 'Welcome VuePG - A Simply Silly RPG'
     };
   }
 };
