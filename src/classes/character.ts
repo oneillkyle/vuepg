@@ -20,10 +20,7 @@ export default class Character {
   equipment = {};
   spells = [];
 
-  constructor({
-    name,
-    characterClass
-  }) {
+  constructor({ name, characterClass }: { name: string; characterClass: {} }) {
     this.name = name;
     this.characterClass = characterClass;
   }
@@ -56,7 +53,10 @@ export default class Character {
   }
 
   setProficiencies(proficiencies) {
-    this.proficiencies = [...proficiencies, ...this.characterClass.proficiencies];
+    this.proficiencies = [
+      ...proficiencies,
+      ...this.characterClass.proficiencies
+    ];
   }
 
   setItems(items) {

@@ -1,0 +1,32 @@
+
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noImplicitAny": true,
+    "outDir": "dist",
+    "sourceMap": true,
+    "lib": [
+      "es5", "es2015.collection", "es2015.promise", "dom", "es2016.array.include"
+    ],
+    "allowJs": true,
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    }
+  }
+}
+// {
+//   "compilerOptions": {
+//     // this aligns with Vue's browser support
+//     "target": "es5",
+//     // this enables stricter inference for data properties on `this`
+//     "strict": true,
+//     // if using webpack 2+ or rollup, to leverage tree shaking:
+//     "module": "es2015",
+//     "moduleResolution": "node"
+//   }
+// }
