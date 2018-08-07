@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import Api from '@/components/Api';
-import Create from '@/components/Create';
-import Hello from '@/components/Hello';
+import Api from '../components/Api.vue';
+import Create from '../components/Create.vue';
+import Hello from '../components/Hello.vue';
 
 Vue.use(Router);
 

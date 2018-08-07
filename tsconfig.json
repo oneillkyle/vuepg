@@ -12,11 +12,11 @@
       "es5", "es2015.collection", "es2015.promise", "dom", "es2016.array.include"
     ],
     "allowJs": true,
-    "paths": {
-      "@/*": [
-        "src/*"
-      ]
-    }
+    // "paths": {
+    //   "@/*": [
+    //     "src/*"
+    //   ]
+    // }
   }
 }
 // {
