@@ -3,25 +3,33 @@
     <h1>{{ msg }}</h1>
     <h2>Get Started</h2>
     <ul>
-      <li><router-link to="create">Create My Character</router-link></li>
+      <li>
+        <router-link to="create">Create My Character</router-link>
+      </li>
     </ul>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'hello',
-  data() {
-    return {
-      msg: 'Welcome VuePG - A Simply Silly RPG'
-    };
-  }
-};
+<script lang="ts">
+import Vue from 'vue';
+import Component from 'vue-class-component';
+
+const AppProps = Vue.extend({
+  props: {}
+});
+@Component({
+  components: {}
+})
+export default class Hello extends AppProps {
+  name = 'hello';
+  msg = 'Welcome VuePG - A Simply Silly RPG';
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
+h1,
+h2 {
   font-weight: normal;
 }
 
@@ -36,6 +44,6 @@ li {
 }
 
 a {
-  color: #35495E;
+  color: #35495e;
 }
 </style>

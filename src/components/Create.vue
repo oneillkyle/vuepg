@@ -20,12 +20,12 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapActions } from 'vuex';
 import dndService from '../services/dnd-service';
-import CreateClass from './create/Class';
-import CreateProficiencies from './create/Proficiencies';
-import CreateStats from './create/Stats';
+import CreateClass from './create/Class.vue';
+import CreateProficiencies from './create/Proficiencies.vue';
+import CreateStats from './create/Stats.vue';
 
 export default {
   name: 'create',
