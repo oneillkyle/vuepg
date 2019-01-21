@@ -22,7 +22,7 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 
-import dndService from '../services/dnd-service';
+import { DndService } from '../services/dnd-service';
 
 const AppProps = Vue.extend({
   props: {}
@@ -37,19 +37,20 @@ const AppProps = Vue.extend({
 })
 export default class Api extends AppProps {
   name = 'api';
-  baseRoutes = Object.keys(dndService.endpoints);
+  dndService = new DndService();
+  baseRoutes = Object.keys(this.dndService.endpoints);
   childRoutes = [];
   indexRoute = null;
 
   getRoute(route: string, id: string) {
-    dndService.getResource(route, id).subscribe(response => {
+    this.dndService.getResource(route, id).subscribe(response => {
       console.log(response);
       this.childRoutes = response.data.results;
     });
   }
 
   getIndex(url: string) {
-    dndService.getResourceByUrl(url).subscribe(response => {
+    this.dndService.getResourceByUrl(url).subscribe(response => {
       console.log(response);
       this.indexRoute = response.data;
     });

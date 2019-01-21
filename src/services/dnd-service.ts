@@ -3,9 +3,9 @@ import {
   from
 } from 'rxjs';
 
-export default {
-  baseEndpoint: 'http://www.dnd5eapi.co/api/',
-  endpoints: {
+export class DndService {
+  baseEndpoint = 'http://www.dnd5eapi.co/api/';
+  endpoints: {[x: string]: string} = {
     abilityScores: 'ability-scores',
     classes: 'classes',
     conditions: 'conditions',
@@ -27,19 +27,21 @@ export default {
     traits: 'traits',
     utility: 'utility',
     weaponProperties: 'weapon-properties'
-  },
+  };
 
-  getResource(resourceName, id) {
+  getResource(resourceName: string, id?: string): any {
     return from(
       axios.get(`${this.baseEndpoint}${this.endpoints[resourceName]}/${id || ''}`)
     );
-  },
-  getResourceByUrl(url) {
+  }
+
+  getResourceByUrl(url: string) {
     return from(
       axios.get(`${url}`)
     );
-  },
+  }
+
   rollInitialValues() {
     return [15, 14, 13, 12, 10, 8];
   }
-};
+}

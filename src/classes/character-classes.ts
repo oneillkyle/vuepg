@@ -1,42 +1,45 @@
-class CharacterClass {
-  startingHealth = [0, 1];
-  startingMana = [0, 1];
+export class CharacterClass {
+  startingHealth: [number, number] = [0, 1];
+  startingMana: [number, number] = [0, 1];
 
-  startingStrength = [0, 1];
-  startingIntelligence = [0, 1];
-  startingConstitution = [0, 1];
-  startingDexterity = [0, 1];
-  startingWisdom = [0, 1];
-  startingCharisma = [0, 1];
+  startingStrength: [number, number] = [0, 1];
+  startingIntelligence: [number, number] = [0, 1];
+  startingConstitution: [number, number] = [0, 1];
+  startingDexterity: [number, number] = [0, 1];
+  startingWisdom: [number, number] = [0, 1];
+  startingCharisma: [number, number] = [0, 1];
+
+  rolledValues = {};
 
   getRolledValues() {
     this.rolledValues = {
-      health: CharacterClass.getRolledValue(this.startingHealth),
-      mana: CharacterClass.getRolledValue(this.startingMana),
-      strength: CharacterClass.getRolledValue(this.startingStrength),
-      intelligence: CharacterClass.getRolledValue(this.startingIntelligence),
-      constitution: CharacterClass.getRolledValue(this.startingConstitution),
-      dexterity: CharacterClass.getRolledValue(this.startingDexterity),
-      wisdom: CharacterClass.getRolledValue(this.startingWisdom),
-      charisma: CharacterClass.getRolledValue(this.startingCharisma)
+      health: this.getRolledValue(this.startingHealth),
+      mana: this.getRolledValue(this.startingMana),
+      strength: this.getRolledValue(this.startingStrength),
+      intelligence: this.getRolledValue(this.startingIntelligence),
+      constitution: this.getRolledValue(this.startingConstitution),
+      dexterity: this.getRolledValue(this.startingDexterity),
+      wisdom: this.getRolledValue(this.startingWisdom),
+      charisma: this.getRolledValue(this.startingCharisma)
     };
   }
 
-  static getRolledValue([min, max]) {
-    return Math.floor(Math.random() * ((max - min) + 1)) + min;
+  getRolledValue([min, max]: [number, number]) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 }
 
+// tslint:disable-next-line:max-classes-per-file
 export class Jester extends CharacterClass {
-  startingHealth = [7, 9];
-  startingMana = [3, 6];
+  startingHealth: [number, number] = [7, 9];
+  startingMana: [number, number] = [3, 6];
 
-  startingStrength = [1, 2];
-  startingIntelligence = [3, 4];
-  startingConstitution = [3, 4];
-  startingDexterity = [8, 12];
-  startingWisdom = [3, 4];
-  startingCharisma = [7, 10];
+  startingStrength: [number, number] = [1, 2];
+  startingIntelligence: [number, number] = [3, 4];
+  startingConstitution: [number, number] = [3, 4];
+  startingDexterity: [number, number] = [8, 12];
+  startingWisdom: [number, number] = [3, 4];
+  startingCharisma: [number, number] = [7, 10];
 
   constructor() {
     super();
@@ -44,16 +47,17 @@ export class Jester extends CharacterClass {
   }
 }
 
+// tslint:disable-next-line:max-classes-per-file
 export class Mage extends CharacterClass {
-  startingHealth = [0, 1];
-  startingMana = [0, 1];
+  startingHealth: [number, number] = [0, 1];
+  startingMana: [number, number] = [0, 1];
 
-  startingStrength = [0, 1];
-  startingIntelligence = [0, 1];
-  startingConstitution = [0, 1];
-  startingDexterity = [0, 1];
-  startingWisdom = [0, 1];
-  startingCharisma = [0, 1];
+  startingStrength: [number, number] = [0, 1];
+  startingIntelligence: [number, number] = [0, 1];
+  startingConstitution: [number, number] = [0, 1];
+  startingDexterity: [number, number] = [0, 1];
+  startingWisdom: [number, number] = [0, 1];
+  startingCharisma: [number, number] = [0, 1];
 
   constructor() {
     super();
