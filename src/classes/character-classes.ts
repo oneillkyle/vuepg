@@ -10,6 +10,7 @@ export class CharacterClass {
   startingCharisma: [number, number] = [0, 1];
 
   rolledValues = {};
+  proficiencies: any[] = [];
 
   getRolledValues() {
     this.rolledValues = {

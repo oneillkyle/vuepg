@@ -1,6 +1,8 @@
+import { CharacterClass } from './character-classes';
+
 export default class Character {
   name = '';
-  characterClass = {};
+  characterClass: CharacterClass;
 
   health = 0;
   maxHealth = 0;
@@ -15,12 +17,12 @@ export default class Character {
   wisdom = 0;
   charisma = 0;
 
-  proficiencies = [];
-  items = [];
+  proficiencies: any[] = [];
+  items: any[] = [];
   equipment = {};
-  spells = [];
+  spells: any[] = [];
 
-  constructor({ name, characterClass }: { name: string; characterClass: {} }) {
+  constructor({ name, characterClass }: { name: string; characterClass: CharacterClass }) {
     this.name = name;
     this.characterClass = characterClass;
   }

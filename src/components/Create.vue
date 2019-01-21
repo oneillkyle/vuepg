@@ -33,9 +33,7 @@ import CreateClass from './create/Class.vue';
 import CreateProficiencies from './create/Proficiencies.vue';
 import CreateStats from './create/Stats.vue';
 
-const AppProps = Vue.extend({
-
-});
+const AppProps = Vue.extend({});
 @Component({
   components: {
     CreateClass,

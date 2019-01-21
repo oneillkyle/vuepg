@@ -13,11 +13,19 @@
 </template>
 
 <script lang="ts">
-export default {
-  name: 'app',
+import Vue from 'vue';
+import Component from 'vue-class-component';
+
+import { store } from './store';
+
+const AppProps = Vue.extend({});
+@Component({})
+export default class App extends AppProps {
+  name = 'app';
+  store = store;
   created() {
-    this.$store.dispatch('getCharacter');
-    this.$store.dispatch('getCharacterCreationStep');
+    this.store.dispatch('getCharacter');
+    this.store.dispatch('getCharacterCreationStep');
   }
 };
 </script>

@@ -14,16 +14,14 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
 
 const AppProps = Vue.extend({
   props: {}
 });
-@Component({
-  components: {}
-})
+@Component({})
 export default class CreateStats extends AppProps {
   name = 'create-stats';
 }
