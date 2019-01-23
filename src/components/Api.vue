@@ -18,42 +18,49 @@
   </div>
 </template>
 
-<script>
-import dndService from '../services/dnd-service';
+<script lang="ts">
+import Vue from 'vue';
+import Component from 'vue-class-component';
 
-export default {
-  name: 'api',
-  data() {
-    return {
-      baseRoutes: Object.keys(dndService.endpoints),
-      childRoutes: [],
-      indexRoute: null
-    };
-  },
-  methods: {
-    getRoute(route) {
-      dndService.getResource(route).subscribe(response => {
-        console.log(response);
-        this.childRoutes = response.data.results;
-      });
-    },
-    getIndex(url) {
-      dndService.getResourceByUrl(url).subscribe(response => {
-        console.log(response);
-        this.indexRoute = response.data;
-      });
-    }
-  },
+import { DndService } from '../services/dnd-service';
+
+const AppProps = Vue.extend({
+  props: {}
+});
+@Component({
+  components: {},
   filters: {
-    pretty(value) {
+    pretty(value: string) {
       return JSON.stringify(value, null, 2);
     }
   }
-};
+})
+export default class Api extends AppProps {
+  name = 'api';
+  dndService = new DndService();
+  baseRoutes = Object.keys(this.dndService.endpoints);
+  childRoutes = [];
+  indexRoute = null;
+
+  getRoute(route: string, id: string) {
+    this.dndService.getResource(route, id).subscribe(response => {
+      console.log(response);
+      this.childRoutes = response.data.results;
+    });
+  }
+
+  getIndex(url: string) {
+    this.dndService.getResourceByUrl(url).subscribe(response => {
+      console.log(response);
+      this.indexRoute = response.data;
+    });
+  }
+}
 </script>
 
 <style scoped>
-h1, h2 {
+h1,
+h2 {
   font-weight: normal;
 }
 
@@ -68,6 +75,6 @@ li {
 }
 
 a {
-  color: #35495E;
+  color: #35495e;
 }
 </style>

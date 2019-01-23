@@ -5,21 +5,33 @@
     </header>
     <main>
       <div class="center">
-        <img src="./assets/logo.png" alt="Vue.js PWA" class="main-image">
+        <!-- <img src="./assets/logo.png" alt="Vue.js PWA" class="main-image"> -->
       </div>
       <router-view></router-view>
     </main>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'app',
+<script lang="ts">
+import Vue from 'vue';
+import Component from 'vue-class-component';
+
+require('phaser');
+require('aframe');
+require('aframe-physics-system');
+
+import { store } from './store';
+
+const AppProps = Vue.extend({});
+@Component({})
+export default class App extends AppProps {
+  name = 'app';
+  store = store;
   created() {
-    this.$store.dispatch('getCharacter');
-    this.$store.dispatch('getCharacterCreationStep');
+    this.store.getCharacter();
+    this.store.getCharacterCreationStep();
   }
-};
+}
 </script>
 
 <style>

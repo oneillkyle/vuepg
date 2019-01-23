@@ -14,17 +14,17 @@
     </div>
 </template>
 
-<script>
-export default {
-  name: 'create-stats',
-  props: {},
-  data() {
-    return {};
-  },
-  created() {},
-  methods: {
-  }
-};
+<script lang="ts">
+import Vue from 'vue';
+import Component from 'vue-class-component';
+
+const AppProps = Vue.extend({
+  props: {}
+});
+@Component({})
+export default class CreateStats extends AppProps {
+  name = 'create-stats';
+}
 </script>
 
 <style scoped>
