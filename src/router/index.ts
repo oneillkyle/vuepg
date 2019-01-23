@@ -5,6 +5,7 @@ import Api from '../components/Api.vue';
 import Create from '../components/Create.vue';
 import Hello from '../components/Hello.vue';
 import EntryScene from '../components/aframe/EntryScene.vue';
+import PhaserScene from '../components/phaser/PhaserScene.vue';
 
 Vue.use(Router);
 
@@ -30,6 +31,11 @@ export default new Router({
       path: '/entry-scene',
       name: 'Entry Scene',
       component: EntryScene
+    },
+    {
+      path: '/phaser-scene',
+      name: 'Phaser Scene',
+      component: PhaserScene
     }
   ]
 });

@@ -9,73 +9,88 @@ const characterCreationSteps = {
   createStubCharacter: 1
 };
 
+interface State {
+  character: Character;
+  characterCreationStep: number;
+}
+
 class CharacterStore {
-  state = {
-    character: Character,
-    characterCreationStep: null
+  state: State = {
+    character: new Character({}),
+    characterCreationStep: 0
   };
-  mutations = {
-    updateCharacter: (state, character) => {
-      state.character = new Character(character);
+
+  private mutations = {
+    updateCharacterStorage: () => {
+      localStorage.setItem('character', JSON.stringify(this.state.character));
     },
-    updateCharacterCreationStep: (state, characterCreationStep) => {
-      state.characterCreationStep = characterCreationStep;
+    updateCharacter: character => {
+      this.state.character = new Character(character);
     },
-    setStats: (state, values) => {
-      state.character.setStats(values);
-      state.character = { ...state.character };
+    updateCharacterCreationStep: characterCreationStep => {
+      this.state.characterCreationStep = characterCreationStep;
     },
-    setProficiencies: (state, values) => {
-      console.log(state.character);
-      state.character.setProficiencies(values);
-      state.character = { ...state.character };
+    setStats: values => {
+      this.state.character.setStats(values);
     },
-    setItems: (state, values) => {
-      state.character.setItems(values);
-      state.character = { ...state.character };
+    setProficiencies: values => {
+      console.log(this.state.character);
+      this.state.character.setProficiencies(values);
     },
-    setSpells: (state, values) => {
-      state.character.setSpells(values);
-      state.character = { ...state.character };
+    setItems: values => {
+      this.state.character.setItems(values);
+    },
+    setSpells: values => {
+      this.state.character.setSpells(values);
     }
   };
-  actions = {
-    updateCharacterStorage({ state }) {
-      localStorage.setItem('character', JSON.stringify(state.character));
-    },
-    createStubCharacter({ dispatch, commit }, { name, characterClass }) {
-      const character = new Character({ name, characterClass });
-      dispatch('updateCharacterCreationStep', characterCreationSteps.createStubCharacter);
-      commit('updateCharacter', character);
-      dispatch('updateCharacterStorage');
-    },
-    updateCharacterCreationStep({ commit }, step) {
-      localStorage.setItem('characterCreationStep', step);
-      commit('updateCharacterCreationStep', step);
-    },
-    getCharacter({ commit }) {
-      commit('updateCharacter', JSON.parse(localStorage.getItem('character') || null));
-    },
-    getCharacterCreationStep({ commit }) {
-      commit('updateCharacterCreationStep', parseInt(localStorage.getItem('characterCreationStep') || 0, 10));
-    },
-    setStats({ commit, dispatch }, values) {
-      commit('setStats', values);
-      dispatch('updateCharacterStorage');
-    },
-    setProficiencies({ commit, dispatch }, values) {
-      commit('setProficiencies', values);
-      dispatch('updateCharacterStorage');
-    },
-    selItems({ commit, dispatch }, values) {
-      commit('setItems', values);
-      dispatch('updateCharacterStorage');
-    },
-    setSpells({ commit, dispatch }, values) {
-      commit('setSpells', values);
-      dispatch('updateCharacterStorage');
-    }
-  };
+
+
+  createStubCharacter({ name, characterClass }) {
+    const character = new Character({ name, characterClass });
+    this.updateCharacterCreationStep(
+      characterCreationSteps.createStubCharacter
+    );
+    this.mutations.updateCharacter(character);
+    this.mutations.updateCharacterStorage();
+  }
+
+  updateCharacterCreationStep(step) {
+    localStorage.setItem('characterCreationStep', step);
+    this.mutations.updateCharacterCreationStep(step);
+  }
+
+  getCharacter() {
+    this.mutations.updateCharacter(
+      JSON.parse(localStorage.getItem('character') || '{}')
+    );
+  }
+
+  getCharacterCreationStep() {
+    this.mutations.updateCharacterCreationStep(
+      parseInt(localStorage.getItem('characterCreationStep') || '0', 10)
+    );
+  }
+
+  setStats(values) {
+    this.mutations.setStats(values);
+    this.mutations.updateCharacterStorage();
+  }
+
+  setProficiencies(values) {
+    this.mutations.setProficiencies(values);
+    this.mutations.updateCharacterStorage();
+  }
+
+  selItems(values) {
+    this.mutations.setItems(values);
+    this.mutations.updateCharacterStorage();
+  }
+
+  setSpells(values) {
+    this.mutations.setSpells(values);
+    this.mutations.updateCharacterStorage();
+  }
 }
 
 export const store = new CharacterStore();
@@ -119,35 +134,35 @@ export const store = new CharacterStore();
 //     },
 //     createStubCharacter({ dispatch, commit }, { name, characterClass }) {
 //       const character = new Character({ name, characterClass });
-//       dispatch('updateCharacterCreationStep', characterCreationSteps.createStubCharacter);
-//       commit('updateCharacter', character);
-//       dispatch('updateCharacterStorage');
+//       this.actions.updateCharacterCreationStep', characterCreationSteps.createStubCharacter);
+//       this.mutations.updateCharacter', character);
+//       this.actions.updateCharacterStorage');
 //     },
 //     updateCharacterCreationStep({ commit }, step) {
 //       localStorage.setItem('characterCreationStep', step);
-//       commit('updateCharacterCreationStep', step);
+//       this.mutations.updateCharacterCreationStep', step);
 //     },
 //     getCharacter({ commit }) {
-//       commit('updateCharacter', JSON.parse(localStorage.getItem('character') || null));
+//       this.mutations.updateCharacter', JSON.parse(localStorage.getItem('character') || null));
 //     },
 //     getCharacterCreationStep({ commit }) {
-//       commit('updateCharacterCreationStep', parseInt(localStorage.getItem('characterCreationStep') || 0, 10));
+//       this.mutations.updateCharacterCreationStep', parseInt(localStorage.getItem('characterCreationStep') || 0, 10));
 //     },
-//     setStats({ commit, dispatch }, values) {
-//       commit('setStats', values);
-//       dispatch('updateCharacterStorage');
+//     setStats(values) {
+//       this.mutations.setStats', values);
+//       this.actions.updateCharacterStorage');
 //     },
-//     setProficiencies({ commit, dispatch }, values) {
-//       commit('setProficiencies', values);
-//       dispatch('updateCharacterStorage');
+//     setProficiencies(values) {
+//       this.mutations.setProficiencies', values);
+//       this.actions.updateCharacterStorage');
 //     },
-//     selItems({ commit, dispatch }, values) {
-//       commit('setItems', values);
-//       dispatch('updateCharacterStorage');
+//     selItems(values) {
+//       this.mutations.setItems', values);
+//       this.actions.updateCharacterStorage');
 //     },
-//     setSpells({ commit, dispatch }, values) {
-//       commit('setSpells', values);
-//       dispatch('updateCharacterStorage');
+//     setSpells(values) {
+//       this.mutations.setSpells', values);
+//       this.actions.updateCharacterStorage');
 //     }
 //   }
 // });

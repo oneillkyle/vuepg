@@ -22,9 +22,9 @@ export default class Character {
   equipment = {};
   spells: any[] = [];
 
-  constructor({ name, characterClass }: { name: string; characterClass: CharacterClass }) {
-    this.name = name;
-    this.characterClass = characterClass;
+  constructor({ name, characterClass }: { name?: string; characterClass?: CharacterClass }) {
+    this.name = name || '';
+    this.characterClass = characterClass || new CharacterClass();
   }
 
   rest() {

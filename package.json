@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "aframe": "^0.8.2",
+    "aframe-physics-system": "^3.3.0",
     "axios": "^0.18.0",
+    "phaser": "^3.15.1",
     "register-service-worker": "^1.0.0",
     "rxjs": "^6.3.3",
     "vue": "^2.5.17",
@@ -26,6 +28,7 @@
     "@vue/cli-plugin-typescript": "^3.1.1",
     "@vue/cli-service": "^3.1.1",
     "node-sass": "^4.9.0",
+    "phaser3-docs": "github:photonstorm/phaser3-docs",
     "sass-loader": "^7.0.1",
     "typescript": "^3.0.0",
     "vue-template-compiler": "^2.5.17"

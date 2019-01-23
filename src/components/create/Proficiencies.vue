@@ -50,8 +50,6 @@ export default class Proficiencies extends AppProps {
     this.proficienciesSelectedNumber = this.proficiencyChoices.map(() => false);
   }
 
-  computed() {}
-
   selectProficiencies() {
     if (!this.proficienciesSelectedNumber.includes(false)) {
       const flat: any[] = [];
